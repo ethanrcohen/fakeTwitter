@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS posts (
+    id SERIAL PRIMARY KEY,
+    content VARCHAR(500) NOT NULL,
+    user_id INTEGER NOT NULL,
+    parent_id INTEGER NULL
+);
