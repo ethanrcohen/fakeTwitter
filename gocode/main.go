@@ -1,10 +1,10 @@
 package main
 
 import (
-	"database/sql"
-	"fmt"
+	"server/db"
+	"server/controllers"
 	"time"
-	"os"
+ 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
 )
 
@@ -15,27 +15,19 @@ const(
 
 // TODO: organize gocode, figure out module structure
 func main() {
-	psqlInfo := fmt.Sprintf(
-		"host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-			host,
-			port,
-			os.Getenv("POSTGRES_USER"),
-			os.Getenv("POSTGRES_PASSWORD"),
-			os.Getenv("POSTGRES_DB"))
+	// TODO: use retry logic
+	time.Sleep(1000 * time.Millisecond)
 
-	// TODO: use retry logic rather than sleeping
-	time.Sleep(3000 * time.Millisecond)
-	db, err := sql.Open("postgres",	psqlInfo)
-	if err != nil {
-		panic(err)
-	}
-
-	err = db.Ping()
-	if err != nil {
-		panic(err)
-	}
-
+	db := db.GetDB()
 	defer db.Close()
 
-	fmt.Println("we've connected!")
+	r := gin.Default()
+	r.GET("/", func (c *gin.Context) {
+		c.JSON(200, gin.H {
+			"message": "pong",
+		})
+	})
+
+	r.GET("/posts", controllers.GetPosts)
+	r.Run()
 }
