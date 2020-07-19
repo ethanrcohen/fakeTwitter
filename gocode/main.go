@@ -1,14 +1,14 @@
 package main
 
 import (
-	"server/db"
-	"server/controllers"
-	"time"
- 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
+	"server/controllers"
+	"server/db"
+	"time"
 )
 
-const(
+const (
 	host = "postgres"
 	port = 5432
 )
@@ -22,8 +22,8 @@ func main() {
 	defer db.Close()
 
 	router := gin.Default()
-	router.GET("/", func (c *gin.Context) {
-		c.JSON(200, gin.H {
+	router.GET("/", func(c *gin.Context) {
+		c.JSON(200, gin.H{
 			"message": "pong",
 		})
 	})

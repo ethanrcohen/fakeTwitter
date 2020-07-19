@@ -1,12 +1,12 @@
 package controllers
 
 import (
-	"server/models"
-	"server/db"
 	"database/sql"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
+	"server/db"
+	"server/models"
 )
 
 func GetPosts(c *gin.Context) {
@@ -28,7 +28,7 @@ func GetPosts(c *gin.Context) {
 		}
 
 		p.HasParent = parentId.Valid
-		if (p.HasParent) {
+		if p.HasParent {
 			p.ParentId = int(parentId.Int32)
 		}
 
@@ -36,16 +36,16 @@ func GetPosts(c *gin.Context) {
 		posts = append(posts, p)
 	}
 
-	c.JSON(200, gin.H {
+	c.JSON(200, gin.H{
 		"posts": posts,
 	})
 }
 
 type PostForm struct {
-	UserId int `form:"user_id"`
-	Content string `form:"content"`
-	HasParent bool `form:"has_parent"`
-	ParentId int  `form:"parent_id"`
+	UserId    int    `form:"user_id"`
+	Content   string `form:"content"`
+	HasParent bool   `form:"has_parent"`
+	ParentId  int    `form:"parent_id"`
 }
 
 func MakePost(c *gin.Context) {
@@ -53,7 +53,7 @@ func MakePost(c *gin.Context) {
 	c.Bind(&postForm)
 
 	var parentIdStr string
-	if (postForm.HasParent) {
+	if postForm.HasParent {
 		parentIdStr = string(postForm.ParentId)
 	} else {
 		parentIdStr = "NULL"
@@ -69,7 +69,7 @@ func MakePost(c *gin.Context) {
 	db.Begin()
 	_, err := db.Exec(queryStr)
 
-	if (err != nil) {
+	if err != nil {
 		fmt.Println(err)
 		c.Status(500)
 	} else {

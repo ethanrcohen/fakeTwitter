@@ -1,13 +1,13 @@
 package db
 
 import (
-   "database/sql"
-   "fmt"
-   "os"
-   _ "github.com/lib/pq"
+	"database/sql"
+	"fmt"
+	_ "github.com/lib/pq"
+	"os"
 )
 
-const(
+const (
 	host = "postgres"
 	port = 5432
 )
@@ -30,13 +30,13 @@ func GetDB() *sql.DB {
 func open() *sql.DB {
 	psqlInfo := fmt.Sprintf(
 		"host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-			host,
-			port,
-			os.Getenv("POSTGRES_USER"),
-			os.Getenv("POSTGRES_PASSWORD"),
-			os.Getenv("POSTGRES_DB"))
+		host,
+		port,
+		os.Getenv("POSTGRES_USER"),
+		os.Getenv("POSTGRES_PASSWORD"),
+		os.Getenv("POSTGRES_DB"))
 
-	db, err := sql.Open("postgres",	psqlInfo)
+	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
 		panic(err)
 	}
