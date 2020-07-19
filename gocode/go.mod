@@ -1,4 +1,4 @@
-module server
+module github.com/ethanrcohen/fakeTwitter
 
 go 1.14
 

@@ -1,11 +1,12 @@
 package main
 
 import (
+	"time"
+
+	"github.com/ethanrcohen/fakeTwitter/controllers"
+	"github.com/ethanrcohen/fakeTwitter/db"
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
-	"server/controllers"
-	"server/db"
-	"time"
 )
 
 const (

@@ -3,8 +3,10 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/lib/pq"
 	"os"
+
+	// Postgres sql driver
+	_ "github.com/lib/pq"
 )
 
 const (
@@ -14,6 +16,7 @@ const (
 
 var db *sql.DB
 
+// GetDB gets a conection to the postgres DB, opening one if necessary.
 func GetDB() *sql.DB {
 	if db == nil {
 		db = open()
