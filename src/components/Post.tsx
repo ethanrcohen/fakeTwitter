@@ -1,28 +1,24 @@
 import React from 'react';
 import UserDisplay from './UserDisplay';
-import logo from '../images/logo.svg';
+import { Avatar } from '@material-ui/core';
+
 
 type PostProps = {
     content: string;
+    pictureFile: string;
 };
 
-class Post extends React.Component<PostProps> {
-    content: string;
-
-    constructor(props: PostProps) {
-        super(props);
-        this.content = props.content;
-    }
-
-    render() {
-        return (
-            // TODO: Make this look not awful
+const Post = (props: PostProps) => {
+    return (
+        // TODO: Make this look not awful
+        <div className="flex">
+            <Avatar alt="Avatar" src={props.pictureFile} />
             <div>
-                <UserDisplay name="React JS" handle="reactjs" pictureFile={logo} ></UserDisplay>
-                <p>{this.content}</p>
+                <UserDisplay name="React JS" handle="reactjs" ></UserDisplay>
+                <p>{props.content}</p>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 export default Post;

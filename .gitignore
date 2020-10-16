@@ -18,6 +18,9 @@
 #go executables
 gocode/bin/
 
+#tailwind output
+src/tailwind.output.css
+
 # misc
 .DS_Store
 .env.local
